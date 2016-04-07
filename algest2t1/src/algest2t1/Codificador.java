@@ -53,7 +53,7 @@ public class Codificador {
 		return new File(file.getName() + "_codificado.txt");
 	}
 	
-	public static void decodifica(File file, Map<Character, Nodo> mapa, Nodo raiz) throws FileNotFoundException, IOException{
+	public static File decodifica(File file, Map<Character, Nodo> mapa, Nodo raiz) throws FileNotFoundException, IOException{
 		try(BufferedReader in = new BufferedReader(new FileReader(file)); 
 		PrintWriter out = new PrintWriter(new FileWriter(file.getName() + "_descodificado.txt")) ){		
 			
@@ -66,7 +66,7 @@ public class Codificador {
 				if(caractere != null) out.write(caractere);				
 			}			
 		}			
-		
+		return new File(file.getName() + "_descodificado.txt");
 	}
 	
 	private static class Decodificador{
@@ -85,35 +85,7 @@ public class Codificador {
 			pos = raiz;
 			return caractere;
 		}
-	}
-	
-	private static Character achaChar(String codigo, Nodo nodo){
-		if(nodo.dir() == null && nodo.esq() == null) return nodo.getCaractere();
-		if(codigo.startsWith("0")) return achaChar(codigo.substring(1), nodo.esq());
-		return achaChar(codigo.substring(1), nodo.dir());
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}	
 	
 	public static void printLeaves(Nodo n){
 		if(n == null) return;
