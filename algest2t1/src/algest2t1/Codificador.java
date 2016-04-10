@@ -51,7 +51,25 @@ public class Codificador {
 			}			
 		}
 		return new File(file.getName() + "_codificado.txt");
+		
 	}
+/*	public static File codifica(File file, Map<Character, Nodo>mapa) throws IOException{
+		try(BufferedReader in = new BufferedReader(new FileReader(file))){
+			BinaryOut out = new BinaryOut(file.getName()+ "_codificado.txt");
+			int codePoint;
+			char[] codigo;
+			while( (codePoint = in.read()) != -1){
+				codigo = mapa.get((char)codePoint).getCodigo().toCharArray();
+				for(char spips: codigo){
+					if(spips == '1') out.write(true);
+					else out.write(false);
+				}
+			}
+			out.close();
+		}		
+		
+		return file;		
+	}*/
 	
 	public static File decodifica(File file, Map<Character, Nodo> mapa, Nodo raiz) throws FileNotFoundException, IOException{
 		try(BufferedReader in = new BufferedReader(new FileReader(file)); 
@@ -68,6 +86,13 @@ public class Codificador {
 		}			
 		return new File(file.getName() + "_descodificado.txt");
 	}
+
+/*	public static File decodifica(File file, Map<Character, Nodo> mapa, Nodo raiz) throws FileNotFoundException, IOException{
+		try(PrintWriter out = new PrintWriter(new FileWriter(file.getName() + "_descodificado.txt"))){
+			BinaryIn in = new BinaryIn();
+		}
+		return file;
+	}*/
 	
 	private static class Decodificador{
 		Nodo raiz;

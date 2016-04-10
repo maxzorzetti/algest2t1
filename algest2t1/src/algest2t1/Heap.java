@@ -54,11 +54,8 @@ public class Heap {
 	
 	public Nodo get(){
 		Nodo res = tree[0];
-		Nodo tmp = tree[size-1];
-		tree[--size] = null;
-		tree[0] = tmp;
+		tree[0] = tree[--size];
 		sift_down( 0 );
-		//TODO redo
 		return res;
 	}
 	
