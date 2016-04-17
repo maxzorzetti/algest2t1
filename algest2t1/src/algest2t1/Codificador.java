@@ -8,21 +8,24 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.ObjectInputStream.GetField;
 import java.nio.file.Path;
 import java.util.Map;
 
 public class Codificador {	
+	/*public static Nodo criaArvore(Heap heap){
+		return criaArvore()
+	}*/
 	public static Nodo criaArvore(Heap heap){
-		while(true){
-			Nodo n1 = heap.get();
-			if(heap.size() == 0) return n1;
-			Nodo n2 = heap.get();
-			Nodo nodo = new Nodo(null);
-			nodo.setFrequencia(n1.getFrequencia() + n2.getFrequencia());
-			nodo.setEsquerda(n1);
-			nodo.setDireita(n2);
-			heap.insert(nodo);
-		}
+		if(heap.size() == 1) return heap.get();
+		Nodo n1 = heap.get();
+		Nodo n2 = heap.get();
+		Nodo nodo = new Nodo(null);
+		nodo.setFrequencia(n1.getFrequencia() + n2.getFrequencia());
+		nodo.setEsquerda(n1);
+		nodo.setDireita(n2);
+		heap.insert(nodo);
+		return criaArvore(heap);
 	}
 	
 	public static void codificaCaracteres(Nodo nodo){
@@ -40,18 +43,25 @@ public class Codificador {
 	}
 	
 	public static File codifica(File file, Map<Character, Nodo> mapa) throws IOException{
+		int bits = 0;
+		System.out.println(file.getName());
+		System.out.println("InitialBits:\t" + file.length());
 		try(BufferedReader in = new BufferedReader(new FileReader(file)); 
-		PrintWriter out = new PrintWriter(new FileWriter(file.getName() + "_codificado.txt")) ){			
+		PrintWriter out = new PrintWriter(new FileWriter(file.getName() + "_codificado." + getExt(file))) ){			
 			int codePoint;
 			Nodo nodo;
 			while( (codePoint = in.read()) != -1){
 				Character caractere = (char)codePoint;
 				nodo = mapa.get(caractere);
 				out.write(nodo.getCodigo());
+				bits+= nodo.getCodigo().length();
 			}			
 		}
-		return new File(file.getName() + "_codificado.txt");
-		
+		System.out.println("FinalBits:\t" + bits);
+		double compression = 1.0*bits/(file.length()*8);
+		System.out.println(compression);
+		System.out.println((1-(compression)));
+		return new File(file.getName() + "_codificado." + getExt(file));
 	}
 /*	public static File codifica(File file, Map<Character, Nodo>mapa) throws IOException{
 		try(BufferedReader in = new BufferedReader(new FileReader(file))){
@@ -73,7 +83,7 @@ public class Codificador {
 	
 	public static File decodifica(File file, Map<Character, Nodo> mapa, Nodo raiz) throws FileNotFoundException, IOException{
 		try(BufferedReader in = new BufferedReader(new FileReader(file)); 
-		PrintWriter out = new PrintWriter(new FileWriter(file.getName() + "_descodificado.txt")) ){		
+		PrintWriter out = new PrintWriter(new FileWriter(file.getName() + "_decodificado." + getExt(file))) ){		
 			
 			int caminho;
 			Character caractere;
@@ -91,7 +101,7 @@ public class Codificador {
 				}
 			}			
 		}			
-		return new File(file.getName() + "_descodificado.txt");
+		return new File(file.getName() + "_decodificado." + getExt(file));
 	}
 
 /*	public static File decodifica(File file, Map<Character, Nodo> mapa, Nodo raiz) throws FileNotFoundException, IOException{
@@ -137,4 +147,15 @@ public class Codificador {
 		print(n.dir(), s+"\t");
 
 	}
+	
+	private static String getExt(File file){
+		String name = file.getName();
+		String ext = "bola";
+		int i = name.lastIndexOf('.');
+		if (i > 0) {
+		    ext = name.substring(i+1);
+		}					
+		return ext;
+	}
+	
 }

@@ -9,7 +9,7 @@ public class App {
 	public static void main(String args[]){
 		long startTime = System.currentTimeMillis();		
 		try {			
-			File arquivoOriginal = Paths.get("arq4.txt").toFile();
+			File arquivoOriginal = Paths.get("arq1.txt").toFile();
 			Map<Character, Nodo> mapa = Leitor.processa( arquivoOriginal );
 
 			/*for(Nodo freq: mapa.values()){
@@ -42,6 +42,6 @@ public class App {
 		
 		long endTime = System.currentTimeMillis();
 		System.out.println();
-		//System.out.println(endTime - startTime);
+		System.out.println(endTime - startTime);
 	}
 }
