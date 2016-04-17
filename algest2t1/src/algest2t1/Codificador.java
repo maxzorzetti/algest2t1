@@ -77,11 +77,18 @@ public class Codificador {
 			
 			int caminho;
 			Character caractere;
-			Decodificador dec = new Decodificador(raiz); 
+			//Decodificador dec = new Decodificador(raiz); 
+			Nodo deco = raiz;
 			
 			while( (caminho = in.read()) != -1){
-				caractere = dec.processa(Character.toString((char)caminho));
-				if(caractere != null) out.write(caractere);				
+				if((char)caminho == '0') deco = deco.esq();
+				else if((char)caminho == '1') deco = deco.dir();
+				else System.out.println("DEUPAUDEUPAUDEUPAU");
+				caractere = deco.getCaractere();
+				if(caractere != null){
+					out.write(caractere);
+					deco = raiz;
+				}
 			}			
 		}			
 		return new File(file.getName() + "_descodificado.txt");

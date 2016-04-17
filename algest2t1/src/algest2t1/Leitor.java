@@ -50,6 +50,9 @@ public class Leitor {
 	public static boolean compara(File file1, File file2) throws FileNotFoundException, IOException{
 		boolean res = true;
 		
+		//File file3 = new File("arq1Codified.txt");
+		//File file4 = new File("arq2.txt_codificado.txt");
+		
 		try(BufferedReader in1 = new BufferedReader(new FileReader(file1)); 
 			BufferedReader in2 = new BufferedReader(new FileReader(file2))){
 			int read1;
