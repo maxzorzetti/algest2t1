@@ -17,15 +17,18 @@ public class Codificador {
 		return criaArvore()
 	}*/
 	public static Nodo criaArvore(Heap heap){
-		if(heap.size() == 1) return heap.get();
-		Nodo n1 = heap.get();
-		Nodo n2 = heap.get();
-		Nodo nodo = new Nodo(null);
-		nodo.setFrequencia(n1.getFrequencia() + n2.getFrequencia());
-		nodo.setEsquerda(n1);
-		nodo.setDireita(n2);
-		heap.insert(nodo);
-		return criaArvore(heap);
+		while(heap.size() > 1){
+			//if(heap.size() == 1) return heap.get();
+			Nodo n1 = heap.get();
+			Nodo n2 = heap.get();
+			Nodo nodo = new Nodo(null);
+			nodo.setFrequencia(n1.getFrequencia() + n2.getFrequencia());
+			nodo.setEsquerda(n1);
+			nodo.setDireita(n2);
+			heap.insert(nodo);
+			//return criaArvore(heap);
+		}
+		return heap.get();
 	}
 	
 	public static void codificaCaracteres(Nodo nodo){
@@ -45,7 +48,7 @@ public class Codificador {
 	public static File codifica(File file, Map<Character, Nodo> mapa) throws IOException{
 		int bits = 0;
 		System.out.println(file.getName());
-		System.out.println("InitialBits:\t" + file.length());
+		System.out.println("InitialBits:\t" + file.length()*8);
 		try(BufferedReader in = new BufferedReader(new FileReader(file)); 
 		PrintWriter out = new PrintWriter(new FileWriter(file.getName() + "_codificado." + getExt(file))) ){			
 			int codePoint;
