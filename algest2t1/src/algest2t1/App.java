@@ -9,7 +9,7 @@ public class App {
 	public static void main(String args[]){
 		long startTime = System.currentTimeMillis();		
 		try {			
-			File arquivoOriginal = Paths.get("arq4.txt").toFile();
+			File arquivoOriginal = Paths.get("arq1.txt").toFile();
 			Map<Character, Nodo> mapa = Leitor.processa( arquivoOriginal );
 
 			/*for(Nodo freq: mapa.values()){
@@ -27,7 +27,7 @@ public class App {
 			File arquivoCodificado = Codificador.codifica(arquivoOriginal, mapa);
 			
 			System.out.println("\nDecodificando...");			
-			File arquivoDecodificado = Codificador.decodifica(arquivoCodificado, mapa, raiz);			
+			File arquivoDecodificado = Codificador.decodifica(arquivoCodificado, raiz);			
 			
 			System.out.print("\nComparando...");
 			if(Leitor.compara(arquivoOriginal, arquivoDecodificado)) System.out.println(" arquivos iguais!");

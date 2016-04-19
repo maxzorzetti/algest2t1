@@ -84,7 +84,7 @@ public class Codificador {
 		return file;		
 	}*/
 	
-	public static File decodifica(File file, Map<Character, Nodo> mapa, Nodo raiz) throws FileNotFoundException, IOException{
+	public static File decodifica(File file, Nodo raiz) throws FileNotFoundException, IOException{
 		try(BufferedReader in = new BufferedReader(new FileReader(file)); 
 		PrintWriter out = new PrintWriter(new FileWriter(file.getName() + "_decodificado." + getExt(file))) ){		
 			
